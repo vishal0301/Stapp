@@ -9,7 +9,6 @@ attrs==23.2.0
 bcrypt==3.2.0
 beautifulsoup4==4.12.3
 blinker==1.4
-Brlapi==0.8.3
 CacheControl==0.12.10
 cachetools==5.3.3
 cachy==0.3.0
