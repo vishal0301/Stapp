@@ -8,3 +8,4 @@ aiosignal
 altair
 annotated-types
 anyio
+googleapiclient
