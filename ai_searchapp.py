@@ -3,7 +3,7 @@ import requests
 
 # Replace with your actual Google API Key and Search Engine ID
 API_KEY = "AIzaSyDj6-Q8AuHXAFmPWF5vELOpOn0wyXZjpXo"
-SEARCH_ENGINE_ID = "YOUR_SEARCH_ENGINE_ID"
+SEARCH_ENGINE_ID = "64c42e1bdc7004bc8"
 
 st.title("AI Apps, Tools, and Companies Search")
 st.write("Search for AI apps, tools, and companies to see details like logo, name, description, website, functionality, and reviews.")
