@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Replace with your actual Google API Key and Search Engine ID
-API_KEY = "YOUR_GOOGLE_API_KEY"
+API_KEY = "AIzaSyDj6-Q8AuHXAFmPWF5vELOpOn0wyXZjpXo"
 SEARCH_ENGINE_ID = "YOUR_SEARCH_ENGINE_ID"
 
 st.title("AI Apps, Tools, and Companies Search")
