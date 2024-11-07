@@ -55,6 +55,7 @@ if query:
                         }}
                         .result-logo {{
                             margin-bottom: 10px;
+                            max-width: 100%;
                         }}
                         .result-title {{
                             font-size: 1.1em;
@@ -62,6 +63,7 @@ if query:
                         .result-info div {{
                             display: block;
                             margin-bottom: 5px;
+                            word-wrap: break-word;
                         }}
                     }}
                     .result-card {{
@@ -72,11 +74,14 @@ if query:
                         display: flex;
                         flex-direction: column;
                         align-items: flex-start;
+                        overflow: hidden;
+                        word-wrap: break-word;
                     }}
                     .result-header {{
                         display: flex;
                         align-items: center;
                         width: 100%;
+                        flex-wrap: wrap;
                     }}
                     .result-logo {{
                         width: 60px;
@@ -99,10 +104,12 @@ if query:
                         font-size: 0.9em;
                         color: #555;
                         line-height: 1.4;
+                        word-wrap: break-word;
                     }}
                     .result-info div {{
                         margin-right: 15px;
                         display: inline-block;
+                        word-wrap: break-word;
                     }}
                     .progress-bar {{
                         background-color: #e0e0e0;
@@ -126,6 +133,7 @@ if query:
                         text-decoration: none;
                         margin-top: 15px;
                         text-align: center;
+                        word-wrap: break-word;
                     }}
                 </style>
                 <div class="result-card">
@@ -133,7 +141,7 @@ if query:
                         <img src="{logo_url}" alt="Logo" class="result-logo">
                         <div>
                             <h3 class="result-title">{title}</h3>
-                            <div style="display: flex; align-items: center;">
+                            <div style="display: flex; align-items: center; flex-wrap: wrap;">
                                 <span class="result-rating">{'★' * int(rating)}{'☆' * (5 - int(rating))}</span>
                                 <span style="margin-left: 10px;">{rating} ({reviews} reviews)</span>
                                 {"<span style='margin-left: 10px; color: green; font-weight: bold;'>Premier Verified</span>" if verified else ""}
