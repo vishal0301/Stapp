@@ -5,7 +5,7 @@ import requests
 API_KEY = "AIzaSyDj6-Q8AuHXAFmPWF5vELOpOn0wyXZjpXo"
 SEARCH_ENGINE_ID = "64c42e1bdc7004bc8"
 
-st.title("AI Apps, Tools, and Companies Search")
+st.title("Companies Search")
 st.write("Search for AI apps, tools, and companies to see details like logo, name, description, website, functionality, and reviews.")
 
 # Query input
@@ -31,34 +31,117 @@ if query:
             # Extract logo if available
             logo_url = pagemap["cse_image"][0]["src"] if "cse_image" in pagemap else "https://via.placeholder.com/80"
 
-            # Simulating additional fields for the example
-            rating = 4.5  # Placeholder rating
-            reviews = 42  # Placeholder number of reviews
-            verified = True  # Placeholder verification status
-            summary = snippet  # Use snippet as a placeholder summary
-            budget = "$25,000+"  # Placeholder budget
-            hourly_rate = "$150 - $199/hr"  # Placeholder hourly rate
-            employees = "10 - 49"  # Placeholder number of employees
-            location = "Irvine, CA"  # Placeholder location
-            services = "60% Mobile App Development"  # Placeholder service description
+            # Unique simulated fields for each result (this would be pulled from actual data if available)
+            rating = 4.0 + (len(title) % 5) * 0.5  # Example: vary ratings based on title length (for illustration)
+            reviews = len(title) % 50 + 1  # Example: random reviews count
+            verified = len(title) % 2 == 0  # Example: alternate verified status
+            budget = "$" + str((len(title) % 10) * 5000 + 5000) + "+"  # Example budget
+            hourly_rate = "$" + str((len(title) % 20 + 1) * 10) + " - $" + str((len(title) % 20 + 10) * 10) + "/hr"  # Example hourly rate
+            employees = str((len(title) % 5 + 1) * 10) + " - " + str((len(title) % 5 + 1) * 20)  # Example employees
+            location = "Location #" + str(len(title) % 10)  # Example location
+            services = str((len(title) % 80)) + "% Mobile App Development"  # Example service percentage
 
-            # Display each result using custom UI layout
+            # Display each result using custom UI layout with mobile-responsive design
             st.markdown(
                 f"""
-                <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                    <div style="display: flex; align-items: center;">
-                        <img src="{logo_url}" alt="Logo" style="width: 80px; height: 80px; border-radius: 8px; margin-right: 20px;">
+                <style>
+                    @media (max-width: 768px) {{
+                        .result-card {{
+                            padding: 10px;
+                        }}
+                        .result-header {{
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }}
+                        .result-logo {{
+                            margin-bottom: 10px;
+                        }}
+                        .result-title {{
+                            font-size: 1.1em;
+                        }}
+                        .result-info div {{
+                            display: block;
+                            margin-bottom: 5px;
+                        }}
+                    }}
+                    .result-card {{
+                        border: 1px solid #ddd;
+                        padding: 20px;
+                        border-radius: 8px;
+                        margin-bottom: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }}
+                    .result-header {{
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                    }}
+                    .result-logo {{
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 8px;
+                        margin-right: 15px;
+                    }}
+                    .result-title {{
+                        font-size: 1.2em;
+                        font-weight: bold;
+                        margin: 0;
+                    }}
+                    .result-rating {{
+                        color: #f39c12;
+                        font-size: 1em;
+                        display: inline-block;
+                    }}
+                    .result-info {{
+                        margin-top: 10px;
+                        font-size: 0.9em;
+                        color: #555;
+                        line-height: 1.4;
+                    }}
+                    .result-info div {{
+                        margin-right: 15px;
+                        display: inline-block;
+                    }}
+                    .progress-bar {{
+                        background-color: #e0e0e0;
+                        border-radius: 4px;
+                        overflow: hidden;
+                        height: 8px;
+                        margin-top: 5px;
+                        width: 100%;
+                    }}
+                    .progress-bar div {{
+                        width: {services.split('%')[0]}%;
+                        height: 100%;
+                        background-color: #3498db;
+                    }}
+                    .result-link {{
+                        display: inline-block;
+                        padding: 10px 15px;
+                        background-color: #e74c3c;
+                        color: #fff;
+                        border-radius: 5px;
+                        text-decoration: none;
+                        margin-top: 15px;
+                        text-align: center;
+                    }}
+                </style>
+                <div class="result-card">
+                    <div class="result-header">
+                        <img src="{logo_url}" alt="Logo" class="result-logo">
                         <div>
-                            <h3 style="margin: 0;">{title}</h3>
+                            <h3 class="result-title">{title}</h3>
                             <div style="display: flex; align-items: center;">
-                                <span style="font-size: 1.2em; color: #f39c12;">{'★' * int(rating) + '☆' * (5 - int(rating))}</span>
-                                <span style="margin-left: 10px; font-size: 0.9em;">{rating} ({reviews} reviews)</span>
+                                <span class="result-rating">{'★' * int(rating)}{'☆' * (5 - int(rating))}</span>
+                                <span style="margin-left: 10px;">{rating} ({reviews} reviews)</span>
                                 {"<span style='margin-left: 10px; color: green; font-weight: bold;'>Premier Verified</span>" if verified else ""}
                             </div>
                         </div>
                     </div>
-                    <p style="margin-top: 10px; font-size: 0.9em;">{summary}</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.9em; color: #555;">
+                    <p class="result-info">{snippet}</p>
+                    <div class="result-info">
                         <div><strong>Budget:</strong> {budget}</div>
                         <div><strong>Hourly Rate:</strong> {hourly_rate}</div>
                         <div><strong>Employees:</strong> {employees}</div>
@@ -66,14 +149,12 @@ if query:
                     </div>
                     <div style="margin-top: 10px;">
                         <strong>Services Provided:</strong>
-                        <div style="background-color: #e0e0e0; border-radius: 8px; overflow: hidden; height: 8px; margin-top: 5px;">
-                            <div style="width: 60%; height: 100%; background-color: #3498db;"></div>
+                        <div class="progress-bar">
+                            <div></div>
                         </div>
                         <p style="font-size: 0.9em; color: #555;">{services}</p>
                     </div>
-                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                        <a href="{link}" target="_blank" style="padding: 10px 15px; background-color: #e74c3c; color: #fff; border-radius: 5px; text-decoration: none;">Visit Website</a>
-                    </div>
+                    <a href="{link}" target="_blank" class="result-link">Visit Website</a>
                 </div>
                 """,
                 unsafe_allow_html=True
