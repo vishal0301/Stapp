@@ -9,3 +9,7 @@ altair
 annotated-types
 anyio
 google-api-python-client
+openai
+SpeechRecognition
+pydub
+flask
